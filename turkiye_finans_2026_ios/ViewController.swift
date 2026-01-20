@@ -10,7 +10,11 @@ import CoreApp
 
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
+    
+    
        // 1. Görünüm belleğe yüklendiğinde çalışır (Sadece 1 kez).
         // UI hazırlıkları, delegasyon atamaları ve bir kez yapılacak kurulumlar burada olur.
         override func viewDidLoad() {
@@ -61,7 +65,31 @@ class ViewController: UIViewController {
             super.didReceiveMemoryWarning()
             print("Uyarı: Bellek doluyor, gereksiz verileri temizle!")
         }
+    
+    
 
-
+    @IBAction func fncLoginBtn(_ sender: UIButton) {
+        let email = txtEmail.text!
+        let password = txtPassword.text!
+        let valid = Validations()
+        if (!valid.isValidEmail(email)) {
+            alert(message: "Lütfen geçerli bir e-posta giriniz.")
+            txtEmail.becomeFirstResponder()
+        }else if (!valid.isValidPassword(password)) {
+            alert(message: "Şifre an az 6 karakter olmalıdır")
+            txtPassword.becomeFirstResponder()
+        }else {
+            
+        }
+    }
+    
+    
+    func alert(message: String) {
+        // uyarı göster
+        let alert = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 

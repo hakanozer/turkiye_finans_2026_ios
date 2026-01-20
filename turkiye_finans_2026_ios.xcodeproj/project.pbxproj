@@ -11,6 +11,9 @@
 		FF0D0B152F1F748A0086FE3D /* DataApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B142F1F748A0086FE3D /* DataApp */; };
 		FF0D0B182F1F74950086FE3D /* DomainApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B172F1F74950086FE3D /* DomainApp */; };
 		FF0D0B1B2F1F749F0086FE3D /* UIApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B1A2F1F749F0086FE3D /* UIApp */; };
+		FF0D0B202F1FB3480086FE3D /* MarqueeText in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B1F2F1FB3480086FE3D /* MarqueeText */; };
+		FF0D0B232F1FB44B0086FE3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B222F1FB44B0086FE3D /* Alamofire */; };
+		FF0D0B252F1FB44B0086FE3D /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B242F1FB44B0086FE3D /* AlamofireDynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +49,10 @@
 				FF0D0B182F1F74950086FE3D /* DomainApp in Frameworks */,
 				FF0D0B152F1F748A0086FE3D /* DataApp in Frameworks */,
 				FF0D0B1B2F1F749F0086FE3D /* UIApp in Frameworks */,
+				FF0D0B232F1FB44B0086FE3D /* Alamofire in Frameworks */,
+				FF0D0B252F1FB44B0086FE3D /* AlamofireDynamic in Frameworks */,
 				FF0D0B122F1F74390086FE3D /* CoreApp in Frameworks */,
+				FF0D0B202F1FB3480086FE3D /* MarqueeText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +99,9 @@
 				FF0D0B142F1F748A0086FE3D /* DataApp */,
 				FF0D0B172F1F74950086FE3D /* DomainApp */,
 				FF0D0B1A2F1F749F0086FE3D /* UIApp */,
+				FF0D0B1F2F1FB3480086FE3D /* MarqueeText */,
+				FF0D0B222F1FB44B0086FE3D /* Alamofire */,
+				FF0D0B242F1FB44B0086FE3D /* AlamofireDynamic */,
 			);
 			productName = turkiye_finans_2026_ios;
 			productReference = FF815F212F1E0905007FC472 /* turkiye_finans_2026_ios.app */;
@@ -127,6 +136,9 @@
 				FF0D0B132F1F748A0086FE3D /* XCLocalSwiftPackageReference "Packages/DataApp" */,
 				FF0D0B162F1F74950086FE3D /* XCLocalSwiftPackageReference "Packages/DomainApp" */,
 				FF0D0B192F1F749F0086FE3D /* XCLocalSwiftPackageReference "Packages/UIApp" */,
+				FF0D0B1E2F1FB3480086FE3D /* XCRemoteSwiftPackageReference "MarqueeText" */,
+				FF0D0B212F1FB44B0086FE3D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FF0D0B262F1FB46C0086FE3D /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FF815F222F1E0905007FC472 /* Products */;
@@ -386,6 +398,33 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		FF0D0B1E2F1FB3480086FE3D /* XCRemoteSwiftPackageReference "MarqueeText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/joekndy/MarqueeText.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		FF0D0B212F1FB44B0086FE3D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.11.0;
+			};
+		};
+		FF0D0B262F1FB46C0086FE3D /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		FF0D0B112F1F74390086FE3D /* CoreApp */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -402,6 +441,21 @@
 		FF0D0B1A2F1F749F0086FE3D /* UIApp */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UIApp;
+		};
+		FF0D0B1F2F1FB3480086FE3D /* MarqueeText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF0D0B1E2F1FB3480086FE3D /* XCRemoteSwiftPackageReference "MarqueeText" */;
+			productName = MarqueeText;
+		};
+		FF0D0B222F1FB44B0086FE3D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF0D0B212F1FB44B0086FE3D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		FF0D0B242F1FB44B0086FE3D /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF0D0B212F1FB44B0086FE3D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
