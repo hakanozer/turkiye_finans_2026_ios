@@ -7,15 +7,16 @@
 
 import UIKit
 import CoreApp
+import DomainApp
 
-class ProductTableViewController: UITableViewController {
-    
+class ProductTableViewController: UITableViewController, ProductSelectionDelegate {
+        
     var products: [Product] = []
     @IBOutlet weak var productTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         products = ProductResult().getProductList()
 
         // Uncomment the following line to preserve selection between presentations
@@ -48,9 +49,30 @@ class ProductTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = products[indexPath.row]
-        item.addToCart()
+        //item.addToCart()
+        
+        let pro = ProductModel(id: UUID(), name: "TV", price: 1000.00)
+        
+        //print("item - \(item)")
+        //print("pro - \(pro)")
+        performSegue(withIdentifier: "productDetail", sender: item)
     }
     
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "productDetail" {
+            
+            let detailVC = segue.destination as! ProductDetailViewController
+            detailVC.product = sender as? Product
+            detailVC.delegate = self
+        }
+        
+    }
+    
+    func didSelectProduct(product: ProductModel) {
+        print("Gelen Product: \(product)")
+    }
 
     /*
     // Override to support conditional editing of the table view.

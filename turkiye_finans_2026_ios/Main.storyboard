@@ -60,25 +60,25 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="oHo-bb-95p" detailTextLabel="m2t-cC-jpx" imageView="K3N-V9-F5U" style="IBUITableViewCellStyleSubtitle" id="KLD-6Q-8Jv">
-                                <rect key="frame" x="0.0" y="50" width="393" height="51"/>
+                                <rect key="frame" x="0.0" y="50" width="393" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KLD-6Q-8Jv" id="MP3-Aq-n2E">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oHo-bb-95p">
-                                            <rect key="frame" x="59.000000000000014" y="5" width="37.666666666666664" height="24"/>
+                                            <rect key="frame" x="59.000000000000014" y="9.3333333333333357" width="37.666666666666664" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="arrowshape.right" catalog="system" id="K3N-V9-F5U">
-                                            <rect key="frame" x="21.333333333333336" y="16.666666666666671" width="21.333333333333332" height="17.333333333333332"/>
+                                            <rect key="frame" x="21.333333333333336" y="24.333333333333336" width="21.333333333333332" height="17.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m2t-cC-jpx">
-                                            <rect key="frame" x="59.000000000000014" y="29" width="52.666666666666664" height="18"/>
+                                            <rect key="frame" x="59.000000000000014" y="36" width="52.666666666666664" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
@@ -96,11 +96,39 @@
                     <navigationItem key="navigationItem" id="TdO-mW-Pm1"/>
                     <connections>
                         <outlet property="productTableView" destination="Q1O-DY-4Rc" id="8Mo-n2-TR8"/>
+                        <segue destination="y56-ls-N9r" kind="show" identifier="productDetail" id="hZM-RE-nls"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjp-Vc-rrd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="908" y="825"/>
+        </scene>
+        <!--Product Detail View Controller-->
+        <scene sceneID="bxO-y5-517">
+            <objects>
+                <viewController id="y56-ls-N9r" customClass="ProductDetailViewController" customModule="turkiye_finans_2026_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nji-DA-boe">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJi-RQ-aN7">
+                                <rect key="frame" x="134" y="70" width="126" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Price Change"/>
+                                <connections>
+                                    <action selector="fncPriceChange:" destination="y56-ls-N9r" eventType="touchUpInside" id="JBE-av-iuD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QNT-PU-kyB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vvM-Rx-YX4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Gb-vv-OMK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1715" y="825"/>
         </scene>
         <!--Register-->
         <scene sceneID="Qzi-gx-Zcb">
