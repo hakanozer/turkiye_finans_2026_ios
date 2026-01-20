@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FF0D0B122F1F74390086FE3D /* CoreApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B112F1F74390086FE3D /* CoreApp */; };
+		FF0D0B152F1F748A0086FE3D /* DataApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B142F1F748A0086FE3D /* DataApp */; };
+		FF0D0B182F1F74950086FE3D /* DomainApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B172F1F74950086FE3D /* DomainApp */; };
+		FF0D0B1B2F1F749F0086FE3D /* UIApp in Frameworks */ = {isa = PBXBuildFile; productRef = FF0D0B1A2F1F749F0086FE3D /* UIApp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FF815F212F1E0905007FC472 /* turkiye_finans_2026_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = turkiye_finans_2026_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +43,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0D0B182F1F74950086FE3D /* DomainApp in Frameworks */,
+				FF0D0B152F1F748A0086FE3D /* DataApp in Frameworks */,
+				FF0D0B1B2F1F749F0086FE3D /* UIApp in Frameworks */,
+				FF0D0B122F1F74390086FE3D /* CoreApp in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +89,10 @@
 			);
 			name = turkiye_finans_2026_ios;
 			packageProductDependencies = (
+				FF0D0B112F1F74390086FE3D /* CoreApp */,
+				FF0D0B142F1F748A0086FE3D /* DataApp */,
+				FF0D0B172F1F74950086FE3D /* DomainApp */,
+				FF0D0B1A2F1F749F0086FE3D /* UIApp */,
 			);
 			productName = turkiye_finans_2026_ios;
 			productReference = FF815F212F1E0905007FC472 /* turkiye_finans_2026_ios.app */;
@@ -107,6 +122,12 @@
 			);
 			mainGroup = FF815F182F1E0905007FC472;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FF0D0B102F1F74390086FE3D /* XCLocalSwiftPackageReference "Packages/CoreApp" */,
+				FF0D0B132F1F748A0086FE3D /* XCLocalSwiftPackageReference "Packages/DataApp" */,
+				FF0D0B162F1F74950086FE3D /* XCLocalSwiftPackageReference "Packages/DomainApp" */,
+				FF0D0B192F1F749F0086FE3D /* XCLocalSwiftPackageReference "Packages/UIApp" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FF815F222F1E0905007FC472 /* Products */;
 			projectDirPath = "";
@@ -149,7 +170,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = turkiye_finans_2026_ios/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -181,7 +202,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = turkiye_finans_2026_ios/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -345,6 +366,44 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		FF0D0B102F1F74390086FE3D /* XCLocalSwiftPackageReference "Packages/CoreApp" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CoreApp;
+		};
+		FF0D0B132F1F748A0086FE3D /* XCLocalSwiftPackageReference "Packages/DataApp" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DataApp;
+		};
+		FF0D0B162F1F74950086FE3D /* XCLocalSwiftPackageReference "Packages/DomainApp" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DomainApp;
+		};
+		FF0D0B192F1F749F0086FE3D /* XCLocalSwiftPackageReference "Packages/UIApp" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/UIApp;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FF0D0B112F1F74390086FE3D /* CoreApp */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreApp;
+		};
+		FF0D0B142F1F748A0086FE3D /* DataApp */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataApp;
+		};
+		FF0D0B172F1F74950086FE3D /* DomainApp */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DomainApp;
+		};
+		FF0D0B1A2F1F749F0086FE3D /* UIApp */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UIApp;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FF815F192F1E0905007FC472 /* Project object */;
 }

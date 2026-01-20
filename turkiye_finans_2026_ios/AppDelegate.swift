@@ -12,24 +12,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+    // 1. Uygulama ilk açıldığında (Launch) çalışır.
+        // SDK başlatma, tema ayarları gibi bir defalık işlemler burada yapılır.
+        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            print("AppDelegate Uygulama Hazır!")
+            return true
+        }
 
-    // MARK: UISceneSession Lifecycle
+        // 2. Uygulama 'Aktif' durumdan çıkarken (örneğin telefon gelince) çalışır.
+        // Oyunlarda oyunu durdurmak, zamanlayıcıları askıya almak için kullanılır.
+        func applicationWillResignActive(_ application: UIApplication) {
+            print("AppDelegate Uygulama duraklatılıyor (Resign Active)...")
+        }
 
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
+        // 3. Uygulama tamamen arka plana geçtiğinde çalışır.
+        // Kullanıcı verilerini kaydetmek ve hafızayı boşaltmak için kritik noktadır.
+        func applicationDidEnterBackground(_ application: UIApplication) {
+            print("AppDelegate Arka plana geçildi. Kaynaklar serbest bırakıldı.")
+        }
 
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
+        // 4. Uygulama arka plandan geri gelmek üzereyken çalışır.
+        // Henüz kullanıcı UI görmez. Hazırlık aşamasıdır.
+        func applicationWillEnterForeground(_ application: UIApplication) {
+            print("AppDelegate Tekrar ön plana dönülüyor...")
+        }
+
+        // 5. Uygulama artık 'Aktif' ve kullanıcıyla etkileşimdedir.
+        // Durdurulan animasyonlar veya ağ istekleri buradan devam ettirilir.
+        func applicationDidBecomeActive(_ application: UIApplication) {
+            print("AppDelegate Uygulama tamamen aktif!")
+        }
+
+        // 6. Uygulama tamamen kapatılmadan (Kill) hemen önce çalışır.
+        // Kısa süreli son kayıtlar için kullanılır (Sadece uygulama arka planda değilse garantidir).
+        func applicationWillTerminate(_ application: UIApplication) {
+            print("AppDelegate Uygulama sonlandırılıyor.")
+        }
 
 
 }
