@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreApp
+import DataApp
 
 
 class ViewController: UIViewController {
@@ -15,59 +16,176 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     
     
-       // 1. Görünüm belleğe yüklendiğinde çalışır (Sadece 1 kez).
-        // UI hazırlıkları, delegasyon atamaları ve bir kez yapılacak kurulumlar burada olur.
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            print("viewDidLoad: View belleğe yüklendi.")
-            
-            let user = User(name: "Ali", email: "ali@mail.com")
-            _ = user.dbConnect()
-            
-            let addDolar = "100".withDollar()
-            print(addDolar)
-            
-            
-            enableKeyboardDismissOnSwipeUp()
-        }
+    // 1. Görünüm belleğe yüklendiğinde çalışır (Sadece 1 kez).
+    // UI hazırlıkları, delegasyon atamaları ve bir kez yapılacak kurulumlar burada olur.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("viewDidLoad: View belleğe yüklendi.")
+        
+        let user = User(name: "Ali", email: "ali@mail.com")
+        _ = user.dbConnect()
+        
+        let addDolar = "100".withDollar()
+        print(addDolar)
+        
+        
+        enableKeyboardDismissOnSwipeUp()
+        
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleUnauthorized),
+            name: .didReceiveUnauthorized,
+            object: nil
+        )
+    }
+    
+    @objc private func handleUnauthorized() {
+        showUnauthorizedBanner(message: "Oturum süreniz doldu. Lütfen tekrar giriş yapın.")
+        
+    }
+    
+    private var unauthorizedBanner: UIView?
 
-        // 2. Görünüm ekrana gelmeden hemen önce çalışır.
-        // Verileri her seferinde güncellemek veya UI'ı gizlemek/göstermek için kullanılır.
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            print("viewWillAppear: View ekrana gelmek üzere.")
-        }
+    private func showUnauthorizedBanner(message: String) {
 
-        // 3. Görünüm ekrana tamamen yerleştiğinde çalışır.
-        // Animasyonları başlatmak veya API isteklerini tetiklemek için idealdir.
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            print("viewDidAppear: View artık ekranda.")
-        }
+        // Eğer zaten gösteriliyorsa tekrar açma
+        if unauthorizedBanner != nil { return }
 
-        // 4. Görünüm ekrandan kaybolmadan hemen önce çalışır.
-        // Veri kaydetme, klavyeyi kapatma veya ağ isteklerini iptal etme yeridir.
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            print("viewWillDisappear: Kullanıcı sayfadan ayrılıyor.")
-        }
+        let bannerHeight: CGFloat = 80
 
-        // 5. Görünüm ekrandan tamamen gittiğinde çalışır.
-        // Bildirim gözlemcilerini (observers) kaldırmak için kullanılır.
-        override func viewDidDisappear(_ animated: Bool) {
-            super.viewDidDisappear(animated)
-            print("viewDidDisappear: Sayfa tamamen kapandı.")
-        }
+        // Container
+        let banner = UIView()
+        banner.backgroundColor = .clear
+        banner.layer.cornerRadius = 16
+        banner.clipsToBounds = true
+        banner.translatesAutoresizingMaskIntoConstraints = false
 
-        // 6. Bellek uyarısı alındığında çalışır.
-        // Önbellekteki (cache) gereksiz büyük verileri temizlemek için kullanılır.
-        override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-            print("Uyarı: Bellek doluyor, gereksiz verileri temizle!")
+        // Blur Effect
+        let blur = UIBlurEffect(style: .systemMaterialDark)
+        let blurView = UIVisualEffectView(effect: blur)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+
+        banner.addSubview(blurView)
+
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: banner.topAnchor),
+            blurView.bottomAnchor.constraint(equalTo: banner.bottomAnchor),
+            blurView.leadingAnchor.constraint(equalTo: banner.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: banner.trailingAnchor)
+        ])
+
+        // Message Label
+        let label = UILabel()
+        label.text = message
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        // Close Button
+        let closeButton = UIButton(type: .system)
+        closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        closeButton.tintColor = .white
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.addTarget(self, action: #selector(dismissUnauthorizedBanner), for: .touchUpInside)
+
+        banner.addSubview(label)
+        banner.addSubview(closeButton)
+
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: banner.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -12),
+            label.centerYAnchor.constraint(equalTo: banner.centerYAnchor),
+
+            closeButton.trailingAnchor.constraint(equalTo: banner.trailingAnchor, constant: -12),
+            closeButton.centerYAnchor.constraint(equalTo: banner.centerYAnchor),
+            closeButton.widthAnchor.constraint(equalToConstant: 24),
+            closeButton.heightAnchor.constraint(equalToConstant: 24)
+        ])
+
+        view.addSubview(banner)
+
+        // AutoLayout (başlangıçta yukarıda)
+        let topConstraint = banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -bannerHeight)
+
+        NSLayoutConstraint.activate([
+            topConstraint,
+            banner.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            banner.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            banner.heightAnchor.constraint(equalToConstant: bannerHeight)
+        ])
+
+        view.layoutIfNeeded()
+
+        self.unauthorizedBanner = banner
+
+        // 🎬 Animasyon – 1 saniyede aşağı insin
+        topConstraint.constant = 12
+
+        UIView.animate(
+            withDuration: 1.0,
+            delay: 0,
+            usingSpringWithDamping: 0.9,
+            initialSpringVelocity: 0.6,
+            options: [.curveEaseOut]
+        ) {
+            self.view.layoutIfNeeded()
         }
+    }
+    
+    @objc private func dismissUnauthorizedBanner() {
+
+        guard let banner = unauthorizedBanner else { return }
+
+        UIView.animate(withDuration: 0.4, animations: {
+            banner.alpha = 0
+            banner.transform = CGAffineTransform(translationX: 0, y: -20)
+        }) { _ in
+            banner.removeFromSuperview()
+            self.unauthorizedBanner = nil
+        }
+    }
+
+
+    
+    // 2. Görünüm ekrana gelmeden hemen önce çalışır.
+    // Verileri her seferinde güncellemek veya UI'ı gizlemek/göstermek için kullanılır.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear: View ekrana gelmek üzere.")
+    }
+    
+    // 3. Görünüm ekrana tamamen yerleştiğinde çalışır.
+    // Animasyonları başlatmak veya API isteklerini tetiklemek için idealdir.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear: View artık ekranda.")
+    }
+    
+    // 4. Görünüm ekrandan kaybolmadan hemen önce çalışır.
+    // Veri kaydetme, klavyeyi kapatma veya ağ isteklerini iptal etme yeridir.
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear: Kullanıcı sayfadan ayrılıyor.")
+    }
+    
+    // 5. Görünüm ekrandan tamamen gittiğinde çalışır.
+    // Bildirim gözlemcilerini (observers) kaldırmak için kullanılır.
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear: Sayfa tamamen kapandı.")
+    }
+    
+    // 6. Bellek uyarısı alındığında çalışır.
+    // Önbellekteki (cache) gereksiz büyük verileri temizlemek için kullanılır.
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("Uyarı: Bellek doluyor, gereksiz verileri temizle!")
+    }
     
     
-
+    
     @IBAction func fncLoginBtn(_ sender: UIButton) {
         let email = txtEmail.text!
         let password = txtPassword.text!
@@ -79,17 +197,29 @@ class ViewController: UIViewController {
             alert(message: "Şifre an az 6 karakter olmalıdır")
             txtPassword.becomeFirstResponder()
         }else {
-            
+            AuthService().login(email: email, password: password) { result in
+                switch result {
+                case .success(let response):
+                    UserDefaults.standard.set(response.data.accessToken, forKey: "token")
+                    UserDefaults().synchronize()
+                    self.dismiss(animated: false)
+                    self.performSegue(withIdentifier: "mainTab", sender: true)
+                case .failure(_):
+                    return
+                    //alert(message: "Username or Pasword fail")
+                }
+            }
         }
+        
+        
+        func alert(message: String) {
+            // uyarı göster
+            let alert = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
-    
-    func alert(message: String) {
-        // uyarı göster
-        let alert = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
     
 }
-

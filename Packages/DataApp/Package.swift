@@ -1,22 +1,30 @@
 // swift-tools-version: 6.2
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
     name: "DataApp",
+    platforms: [
+        .iOS(.v15) // Moya için önerilir
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "DataApp",
             targets: ["DataApp"]
         ),
     ],
+    dependencies: [
+        // 🔗 Moya Dependency
+        .package(
+            url: "https://github.com/Moya/Moya.git",
+            from: "15.0.0"
+        )
+    ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "DataApp"
+            name: "DataApp",
+            dependencies: [
+                .product(name: "Moya", package: "Moya")
+            ]
         ),
         .testTarget(
             name: "DataAppTests",
@@ -24,3 +32,4 @@ let package = Package(
         ),
     ]
 )
+
