@@ -197,6 +197,44 @@ class ViewController: UIViewController {
             alert(message: "Şifre an az 6 karakter olmalıdır")
             txtPassword.becomeFirstResponder()
         }else {
+            
+            Thread {
+                // Eski thread
+                //for item in 0...1000000 {
+                    //print("Thread Call - \(item) ")
+                //}
+            }.start()
+            
+            DispatchQueue.main.async {
+                // "UI Güncellendi"
+            }
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                //sleep(30)
+                DispatchQueue.main.async {
+                    print("bitti---")
+                }
+            }
+            
+            Task {
+                do {
+                    let data = try await fetchUsers()
+                    print("Pull Data: \(data)")
+                }catch {
+                    
+                }
+            }
+            print("RestApi Call Not Block")
+            
+            Task {
+                alertUi()
+            }
+            
+            Task.detached {
+                print("Detached Task")
+            }
+            
+            
             AuthService().login(email: email, password: password) { result in
                 switch result {
                 case .success(let response):
@@ -219,6 +257,19 @@ class ViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    func fetchUsers() async throws -> ApiResponse {
+        let url = URL(string: "https://jsonbulut.com/api/comments")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        print("Data Gelen \(data)")
+        let response = try JSONDecoder().decode(ApiResponse.self, from: data)
+        return response
+    }
+    
+    @MainActor
+    func alertUi() {
+        print("alertUi Call")
     }
     
     

@@ -11,7 +11,8 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.removeObject(forKey: "token")
+         UserDefaults.standard.removeObject(forKey: "token")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
