@@ -11,7 +11,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     // 1. Uygulama ilk açıldığında (Launch) çalışır.
         // SDK başlatma, tema ayarları gibi bir defalık işlemler burada yapılır.
         func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

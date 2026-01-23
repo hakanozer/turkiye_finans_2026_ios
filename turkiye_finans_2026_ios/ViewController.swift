@@ -8,9 +8,22 @@
 import UIKit
 import CoreApp
 import DataApp
+import Combine
+import Swinject
 
+protocol AuthServicing { func login(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) }
+extension AuthService: AuthServicing {}
 
 class ViewController: UIViewController {
+    
+    let container = AppDIContainer.shared.container
+    var authService: AuthServicing = AuthService()
+    var defaults: UserDefaults = .standard
+    
+    private var cancellables = Set<AnyCancellable>()   // 🔴 KRİTİK
+    
+    var userViewModel = UserModel()
+    var viewModel = UserViewModel()
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -20,7 +33,12 @@ class ViewController: UIViewController {
     // UI hazırlıkları, delegasyon atamaları ve bir kez yapılacak kurulumlar burada olur.
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBindings()
         print("viewDidLoad: View belleğe yüklendi.")
+        
+        Task {
+            await viewModel.fetchUsers()
+        }
         
         let user = User(name: "Ali", email: "ali@mail.com")
         _ = user.dbConnect()
@@ -38,12 +56,26 @@ class ViewController: UIViewController {
             name: .didReceiveUnauthorized,
             object: nil
         )
+        
+        let userAction = container.resolve(UserAction.self)
+        userAction?.report()
+        
+        let customer = container.resolve(Customer.self)
+        customer?.report()
+        
     }
     
     @objc private func handleUnauthorized() {
         showUnauthorizedBanner(message: "Oturum süreniz doldu. Lütfen tekrar giriş yapın.")
-        
     }
+    
+    private func setupBindings() {
+       viewModel.$users
+           .receive(on: RunLoop.main)
+           .sink { [weak self] users in
+               print("users \(users)")
+           }.store(in: &cancellables)
+   }
     
     private var unauthorizedBanner: UIView?
 
@@ -235,11 +267,11 @@ class ViewController: UIViewController {
             }
             
             
-            AuthService().login(email: email, password: password) { result in
+            authService.login(email: email, password: password) { result in
                 switch result {
                 case .success(let response):
-                    UserDefaults.standard.set(response.data.accessToken, forKey: "token")
-                    UserDefaults().synchronize()
+                    self.defaults.set(response.data.accessToken, forKey: "token")
+                    self.defaults.synchronize()
                     self.dismiss(animated: false)
                     self.performSegue(withIdentifier: "mainTab", sender: true)
                 case .failure(_):
