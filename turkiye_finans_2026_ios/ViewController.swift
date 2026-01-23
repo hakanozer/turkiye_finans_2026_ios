@@ -10,6 +10,7 @@ import CoreApp
 import DataApp
 import Combine
 import Swinject
+import SwiftUI
 
 protocol AuthServicing { func login(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) }
 extension AuthService: AuthServicing {}
@@ -302,6 +303,20 @@ class ViewController: UIViewController {
     @MainActor
     func alertUi() {
         print("alertUi Call")
+    }
+    
+    
+    @IBAction func fncCityList(_ sender: UIButton) {
+        
+        let hostingVC = UIHostingController(
+            rootView: NavigationStack {
+                CityListView(viewModel: CityListViewModel())
+            }
+        )
+        
+        hostingVC.modalPresentationStyle = .fullScreen
+        present(hostingVC, animated: true)
+        
     }
     
     
